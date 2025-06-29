@@ -1,0 +1,126 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8rtspie5r3gp"]
+
+[ext_resource type="PackedScene" uid="uid://qudahvobacf7" path="res://player.tscn" id="1_u52ul"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u52ul"]
+size = Vector2(1151, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oi3di"]
+size = Vector2(660, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2txt"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ainy"]
+size = Vector2(40, 306)
+
+[node name="Level" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Surface" type="Node2D" parent="Background"]
+
+[node name="Surface" type="StaticBody2D" parent="Background/Surface"]
+
+[node name="ColorRect" type="ColorRect" parent="Background/Surface/Surface"]
+offset_top = 608.0
+offset_right = 1151.0
+offset_bottom = 648.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Surface/Surface"]
+position = Vector2(575.5, 628)
+shape = SubResource("RectangleShape2D_u52ul")
+
+[node name="Wall Right" type="StaticBody2D" parent="Background/Surface"]
+
+[node name="ColorRect" type="ColorRect" parent="Background/Surface/Wall Right"]
+offset_left = 1111.0
+offset_top = 568.0
+offset_right = 1151.0
+offset_bottom = 608.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Surface/Wall Right"]
+position = Vector2(1131, 588)
+shape = SubResource("RectangleShape2D_vonw3")
+
+[node name="Wall Left" type="StaticBody2D" parent="Background/Surface"]
+
+[node name="ColorRect" type="ColorRect" parent="Background/Surface/Wall Left"]
+offset_top = 568.0
+offset_right = 40.0
+offset_bottom = 608.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Surface/Wall Left"]
+position = Vector2(20, 588)
+shape = SubResource("RectangleShape2D_vonw3")
+
+[node name="Platform 1" type="Node2D" parent="Background"]
+
+[node name="Surface 1" type="StaticBody2D" parent="Background/Platform 1"]
+
+[node name="ColorRect" type="ColorRect" parent="Background/Platform 1/Surface 1"]
+offset_left = 490.0
+offset_top = 302.0
+offset_right = 1150.0
+offset_bottom = 342.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Platform 1/Surface 1"]
+position = Vector2(820, 322)
+shape = SubResource("RectangleShape2D_oi3di")
+one_way_collision = true
+
+[node name="Wall Right 1" type="StaticBody2D" parent="Background/Platform 1"]
+
+[node name="ColorRect" type="ColorRect" parent="Background/Platform 1/Wall Right 1"]
+offset_left = 1110.0
+offset_top = 262.0
+offset_right = 1150.0
+offset_bottom = 302.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Platform 1/Wall Right 1"]
+position = Vector2(1130, 282)
+shape = SubResource("RectangleShape2D_0b4ue")
+
+[node name="Wall Left 2" type="StaticBody2D" parent="Background/Platform 1"]
+
+[node name="ColorRect" type="ColorRect" parent="Background/Platform 1/Wall Left 2"]
+offset_left = 490.0
+offset_top = 262.0
+offset_right = 530.0
+offset_bottom = 302.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Platform 1/Wall Left 2"]
+position = Vector2(510, 282)
+shape = SubResource("RectangleShape2D_f2txt")
+
+[node name="Ladder" type="Node2D" parent="Background"]
+
+[node name="Ladder" type="Area2D" parent="Background/Ladder"]
+
+[node name="ColorRect" type="ColorRect" parent="Background/Ladder/Ladder"]
+offset_left = 600.0
+offset_top = 302.0
+offset_right = 640.0
+offset_bottom = 608.0
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Ladder/Ladder"]
+position = Vector2(620, 455)
+shape = SubResource("RectangleShape2D_1ainy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="Player" parent="." instance=ExtResource("1_u52ul")]
+z_index = 1
+position = Vector2(115, 576)
+
+[connection signal="body_entered" from="Background/Ladder/Ladder" to="Player" method="_on_ladder_body_entered"]
+[connection signal="body_exited" from="Background/Ladder/Ladder" to="Player" method="_on_ladder_body_exited"]
