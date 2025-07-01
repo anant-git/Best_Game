@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-@export var speed: float = 1000
+@export var speed: float = 500
 var direction: int = 1  # 1 = right, -1 = left
-@export var climb_speed := 600
+@export var climb_speed := 200
 @export var gravity := 400.0
 var on_ladder := false
 @export var gravity_multiplier := 100
@@ -31,5 +31,14 @@ func _on_ladder_body_entered(body: Node2D) -> void:
 
 
 func _on_ladder_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		on_ladder = false
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		on_ladder = true
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		on_ladder = false
