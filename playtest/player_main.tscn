@@ -1,0 +1,114 @@
+[gd_scene load_steps=16 format=3 uid="uid://87ic780m7bwm"]
+
+[ext_resource type="Texture2D" uid="uid://bdykunlwmt4xu" path="res://kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_6a75n"]
+[ext_resource type="Script" uid="uid://it7ll4x5kuy6" path="res://player_main.gd" id="1_l7yu1"]
+[ext_resource type="Texture2D" uid="uid://io71utbkreal" path="res://kenney_1-bit-platformer-pack/Tiles/Transparent/tile_0013.png" id="3_51kjy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7yu1"]
+atlas = ExtResource("1_6a75n")
+region = Rect2(0, 209, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51kjy"]
+atlas = ExtResource("1_6a75n")
+region = Rect2(48, 209, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46yis"]
+atlas = ExtResource("1_6a75n")
+region = Rect2(64, 209, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7om4j"]
+atlas = ExtResource("1_6a75n")
+region = Rect2(80, 209, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2k47"]
+atlas = ExtResource("1_6a75n")
+region = Rect2(96, 209, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nu0k"]
+atlas = ExtResource("1_6a75n")
+region = Rect2(16, 209, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdhd0"]
+atlas = ExtResource("1_6a75n")
+region = Rect2(32, 209, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ab10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7yu1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51kjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46yis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7om4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2k47")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nu0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gdhd0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tu2rr"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="Gradient" id="Gradient_46yis"]
+offsets = PackedFloat32Array(0, 0.535714, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.535714, 0.535714, 0.535714, 1, 0.273518, 0.273518, 0.273518, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7om4j"]
+gradient = SubResource("Gradient_46yis")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l7yu1"]
+particle_flag_disable_z = true
+gravity = Vector3(-10, 0, 0)
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+color_ramp = SubResource("GradientTexture1D_7om4j")
+
+[node name="Player_Main" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 33
+script = ExtResource("1_l7yu1")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1ab10")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_tu2rr")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-17, 3)
+texture = ExtResource("3_51kjy")
+lifetime = 0.75
+fixed_fps = 8
+process_material = SubResource("ParticleProcessMaterial_l7yu1")
+
+[connection signal="player_is_dead" from="." to="." method="_on_player_is_dead"]
