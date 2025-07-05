@@ -1,9 +1,12 @@
 extends Node2D
 
-#func _ready():
-#	for enemy in $Enemies.get_children():
-#		if enemy.has_signal("damage_to_player"):
-#			$Player_Main.connect("damage_to_player", enemy_detected)
+func _unhandled_input(event):
+	if event.is_action_pressed("Escape"):
+		get_tree().paused = true
+		$Menu.visible = true
+		$Menu/Panel/PanelContainer/MarginContainer/VBoxContainer/Resume.disabled = false
 
-#func enemy_detected():
-#	$Player_Main.death()
+func _on_player_main_start_menu():
+	get_tree().paused = true
+	$Menu.visible = true
+	$Menu/Panel/PanelContainer/MarginContainer/VBoxContainer/Resume.disabled = true

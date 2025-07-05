@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://3rcwanat1ieq"]
+[gd_scene load_steps=13 format=4 uid="uid://3rcwanat1ieq"]
 
 [ext_resource type="Script" uid="uid://cewvqitawi2kp" path="res://test_level.gd" id="1_4ptq8"]
 [ext_resource type="Texture2D" uid="uid://bdykunlwmt4xu" path="res://kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_gojnm"]
 [ext_resource type="PackedScene" uid="uid://87ic780m7bwm" path="res://player_main.tscn" id="2_1c2mv"]
 [ext_resource type="PackedScene" uid="uid://cn7nvurt0x1xy" path="res://enemy.tscn" id="2_f7g2b"]
 [ext_resource type="PackedScene" uid="uid://bqs26u3q8wpjp" path="res://light_source.tscn" id="5_sb12i"]
+[ext_resource type="PackedScene" uid="uid://4vxk2ify73wy" path="res://menu.tscn" id="6_gbhdq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1c2mv"]
 texture = ExtResource("1_gojnm")
@@ -530,6 +531,10 @@ amount = 100
 visibility_rect = Rect2(-640, -360, 1280, 720)
 process_material = SubResource("ParticleProcessMaterial_sb12i")
 
+[node name="Menu" parent="." instance=ExtResource("6_gbhdq")]
+process_mode = 2
+visible = false
+
 [connection signal="body_entered" from="Ladder/Area2D" to="Player_Main" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Ladder/Area2D" to="Player_Main" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="Ladder2/Area2D" to="Player_Main" method="_on_area_2d_body_entered"]
@@ -539,3 +544,4 @@ process_material = SubResource("ParticleProcessMaterial_sb12i")
 [connection signal="body_entered" from="Ladder4/Area2D" to="Player_Main" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Ladder4/Area2D" to="Player_Main" method="_on_area_2d_body_exited"]
 [connection signal="damage_to_player" from="Enemies/Enemy" to="Player_Main" method="_on_enemy_damage_to_player"]
+[connection signal="start_menu" from="Player_Main" to="." method="_on_player_main_start_menu"]

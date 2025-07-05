@@ -7,9 +7,8 @@ var direction: Vector2 = Vector2(1, 0) # 1 = right, -1 = left
 var on_ladder := false
 @export var gravity_multiplier := 100
 signal player_is_dead
+signal start_menu
 @onready var enemy = get_tree().get_first_node_in_group("enemy")
-
-
 
 func death():
 	print("Player Died")
@@ -54,8 +53,5 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		on_ladder = false
 
 #func _on_enemy_damage_to_player():
-#	print("Enemy_Detected")
-#	death()
-
-func _on_enemy_damage_to_player():
-	pass
+	#queue_free()
+	#emit_signal("start_menu")

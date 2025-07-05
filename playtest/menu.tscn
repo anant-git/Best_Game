@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://4vxk2ify73wy"]
+
+[ext_resource type="Script" uid="uid://d83i4jn5506a" path="res://menu.gd" id="1_lti8b"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lti8b")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+offset_right = 1280.0
+offset_bottom = 640.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -33.0
+offset_right = 160.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="Panel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Start" type="Button" parent="Panel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start New Game"
+
+[node name="Exit_Game" type="Button" parent="Panel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit to Desktop"
+
+[connection signal="pressed" from="Panel/PanelContainer/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/PanelContainer/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Panel/PanelContainer/MarginContainer/VBoxContainer/Exit_Game" to="." method="_on_exit_game_pressed"]
