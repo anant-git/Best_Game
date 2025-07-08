@@ -10,6 +10,9 @@ var direction: Vector2 = Vector2(1, 0) # 1 = right, -1 = left
 
 signal damage_to_player
 
+func _ready():
+	add_to_group("enemy")
+
 func _physics_process(delta):
 	velocity.x = speed * direction.x
 	velocity.y += gravity * gravity_multiplier * delta
