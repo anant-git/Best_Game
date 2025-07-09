@@ -73,8 +73,10 @@ func update_ladder_placeholder(atlas_target: Vector2i) -> void:
 		world_pos.x -= 12
 		ladder_placeholder.global_position = world_pos
 		ladder_placeholder.visible = true
+		#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	else:
 		ladder_placeholder.visible = false
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		#
 	## Check overlap with placed ladders
 	#var overlapped := false
