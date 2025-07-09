@@ -8,7 +8,6 @@ var on_ladder := false
 @export var gravity_multiplier := 100
 signal player_is_dead
 signal start_menu
-@onready var enemy = get_tree().get_first_node_in_group("enemy")
 
 func death():
 	print("Player Died")
@@ -44,14 +43,33 @@ func _physics_process(delta):
 		img.flip_x()
 		$GPUParticles2D.texture = ImageTexture.create_from_image(img)
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+#func _on_area_2d_body_entered(body: Node2D) -> void:
+	#if body.name == "Player_Main":
+		#on_ladder = true
+#
+#func _on_area_2d_body_exited(body: Node2D) -> void:
+	#if body.name == "Player_Main":
+		#on_ladder = false
+
+func _on_enemy_damage_to_player():
+	queue_free()
+	emit_signal("start_menu")
+
+func _on_ladder_placeholder_player_entered(body: Node2D) -> void:
 	if body.name == "Player_Main":
 		on_ladder = true
+	print("Entered")
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
+func _on_ladder_placeholder_player_exit(body: Node2D) -> void:
 	if body.name == "Player_Main":
 		on_ladder = false
 
-#func _on_enemy_damage_to_player():
-	#queue_free()
-	#emit_signal("start_menu")
+#func _on_ladder_entered(body):
+	#if body == self:
+		#on_ladder = true
+		#print("Ladder entered")
+#
+#func _on_ladder_exited(body):
+	#if body == self:
+		#on_ladder = false
+		#print("Ladder exited")
