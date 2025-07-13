@@ -4,11 +4,18 @@ extends Node2D
 @onready var LadderScene: PackedScene = preload("res://ladder_test.tscn")
 @onready var ladder_placeholder = $ladder_placeholder
 @onready var menu = $Menu
+@export_enum("Level1", "Level2", "Level3") var level = "Level1"
+var ladders = {}
 @export var ladder_counter: int = 4
 @onready var enemies = get_tree().get_nodes_in_group("enemy")
 @onready var player = $Player_Main
 
 func _ready():
+	if not Engine.is_editor_hint():
+		ladders['Level1'] = 4
+		ladders['Level2'] = 4
+		ladders['Level3'] = 3
+	ladder_counter = ladders[level]
 	$ladder_placeholder.signal_enabled = false
 	$ladder_placeholder.modulate.a = 0.5
 	process_mode = Node.PROCESS_MODE_INHERIT
