@@ -7,7 +7,7 @@ func _ready():
 
 func _on_start_pressed():
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://test_level.tscn")
+	get_tree().change_scene_to_file("res://Level1.tscn")
 
 func _on_exit_game_pressed():
 	get_tree().quit()
