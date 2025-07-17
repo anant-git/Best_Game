@@ -4,18 +4,17 @@ extends Node2D
 @onready var LadderScene: PackedScene = preload("res://ladder_test.tscn")
 @onready var ladder_placeholder = $ladder_placeholder
 @onready var menu = $Menu
-@export_enum("Level1", "Level2", "Level3") var level = "Level1"
 var ladders = {}
 @export var ladder_counter: int = 4
 @onready var enemies = get_tree().get_nodes_in_group("enemy")
+@onready var levels = get_tree().get_nodes_in_group("level")
 @onready var player = $Player_Main
 
 func _ready():
+	add_to_group("level")
 	if not Engine.is_editor_hint():
-		ladders['Level1'] = 4
-		ladders['Level2'] = 4
-		ladders['Level3'] = 3
-	ladder_counter = ladders[level]
+		ladders = {'Level1': 4, 'Level2': 4, 'Level3': 10}
+	ladder_counter = ladders[get_tree().current_scene.name]
 	$ladder_placeholder.signal_enabled = false
 	$ladder_placeholder.modulate.a = 0.5
 	process_mode = Node.PROCESS_MODE_INHERIT
@@ -23,10 +22,15 @@ func _ready():
 	print("Initial matching cells:", matches)
 	for enemy in enemies:
 		enemy.damage_to_player.connect(player._on_enemy_damage_to_player)
+	$InGameUI._on_level_name_change(get_tree().current_scene.name)
+	$InGameUI._on_ladder_change(ladder_counter)
 
 func _process(delta):
 	if not menu.visible:
 		update_ladder_placeholder(Vector2i(16, 9))
+	$TransitionGate.game_ui_visibility.connect(func():
+		$InGameUI.visible = !$InGameUI.visible
+	)
 
 func _on_player_main_start_menu():
 	get_tree().paused = true
@@ -127,6 +131,7 @@ func _handle_left_click():
 
 		ladder_instance.connect("ladder_right_clicked", Callable(self, "_on_ladder_right_clicked"))
 		ladder_counter -= 1
+		$InGameUI._on_ladder_change(ladder_counter)
 		ladder_placeholder.visible = false
 
 func _on_ladder_right_clicked(ladder_node: Node2D) -> void:
@@ -134,3 +139,4 @@ func _on_ladder_right_clicked(ladder_node: Node2D) -> void:
 		return 
 	ladder_node.queue_free()
 	ladder_counter += 1
+	$InGameUI._on_ladder_change(ladder_counter)

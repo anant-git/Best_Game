@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbgelh6hayk7h"]
+
+[ext_resource type="FontFile" uid="uid://j8q5tlctkkto" path="res://fonts/milker/Milker.otf" id="1_kenku"]
+[ext_resource type="Script" uid="uid://c8gn8i3anxiwc" path="res://in_game_ui.gd" id="1_onc8m"]
+
+[node name="InGameUI" type="CanvasLayer"]
+script = ExtResource("1_onc8m")
+
+[node name="LevelNameLabel" type="Label" parent="."]
+offset_top = 521.0
+offset_right = 1280.0
+offset_bottom = 583.0
+theme_override_colors/font_color = Color(0.493545, 0.493546, 0.493546, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_kenku")
+theme_override_font_sizes/font_size = 30
+vertical_alignment = 2
+
+[node name="Ladders" type="Label" parent="."]
+offset_top = 521.0
+offset_right = 1280.0
+offset_bottom = 583.0
+theme_override_colors/font_color = Color(0.493545, 0.493546, 0.493546, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_kenku")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 2
+vertical_alignment = 2

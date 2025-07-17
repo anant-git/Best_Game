@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://b6qys1v2dunrb"]
+[gd_scene load_steps=14 format=4 uid="uid://b6qys1v2dunrb"]
 
 [ext_resource type="Script" uid="uid://cewvqitawi2kp" path="res://LevelScript.gd" id="1_nqeel"]
 [ext_resource type="Texture2D" uid="uid://bdykunlwmt4xu" path="res://kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png" id="2_u5lf4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bqs26u3q8wpjp" path="res://light_source.tscn" id="5_6vscs"]
 [ext_resource type="PackedScene" uid="uid://4vxk2ify73wy" path="res://menu.tscn" id="6_otr1s"]
 [ext_resource type="PackedScene" uid="uid://sfxsaix3yfwe" path="res://ladder_test.tscn" id="7_bptnd"]
+[ext_resource type="PackedScene" uid="uid://bbgelh6hayk7h" path="res://in_game_ui.tscn" id="8_nqeel"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1c2mv"]
 texture = ExtResource("2_u5lf4")
@@ -453,7 +454,6 @@ color_ramp = SubResource("GradientTexture1D_gbhdq")
 
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_nqeel")
-level = "Level3"
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1279.0
@@ -496,6 +496,8 @@ process_mode = 2
 visible = false
 
 [node name="ladder_placeholder" parent="." instance=ExtResource("7_bptnd")]
+
+[node name="InGameUI" parent="." instance=ExtResource("8_nqeel")]
 
 [connection signal="start_menu" from="Player_Main" to="." method="_on_player_main_start_menu"]
 [connection signal="player_entered" from="ladder_placeholder" to="Player_Main" method="_on_ladder_placeholder_player_entered"]
